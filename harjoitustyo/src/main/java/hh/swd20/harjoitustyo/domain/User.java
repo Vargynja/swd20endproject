@@ -1,10 +1,19 @@
 package hh.swd20.harjoitustyo.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class User {
 
 	@Id
@@ -13,8 +22,10 @@ public class User {
 	private Long id;
 	
 	@Column(name = "username", nullable = false, unique = true)
+	@Size(min = 3, max = 20)
 	private String username;
 	
+	@JsonIgnore
 	@Column(name = "password", nullable = false)
 	private String passwordHash;
 	
@@ -23,6 +34,10 @@ public class User {
 	
 	@Column(name = "role", nullable = false)
 	private String role;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private List<Comment> comments;
 	
 	public User() {}
 
