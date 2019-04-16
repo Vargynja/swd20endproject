@@ -7,16 +7,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter	@Setter
+@NoArgsConstructor
 public class Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@NotNull
+	@Setter(AccessLevel.NONE)
 	private Long id;
 	
 	@Max(1000)
@@ -29,29 +34,7 @@ public class Comment {
 	
 	@ManyToOne
 	@JsonIgnore
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "game_id")
 	private Game game;
-	
-	public Comment() {}
-
-	public Comment(String comment) {
-		this.comment = comment;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
 	
 }

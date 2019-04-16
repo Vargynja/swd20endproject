@@ -5,16 +5,21 @@
 <meta http-equiv="Content Type" content="text/html" charset="UTF-8">
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<title>Home</title>
+<title>GameStatics</title>
 </head>
 <body>
-	<div class="col-8"></div>
+	<div class="col-8">
+		<h1>Welcome to GameStatics</h1>
+	</div>
 	<div class="col-4">
-		<h6 th:inline="text">Current user: [[${#httpServletRequest.remoteUser}]]</h6>
+		<h6 sec:authorize="isAuthenticated()" th:inline="text">Current user: [[${#httpServletRequest.remoteUser}]]</h6>
 		<button th:action="@{/login}" sec:authorize="isAnonymous()" class="btn btn-success">Login</button>
 		<form th:action="@{/logout}" method="post">
 			<input class="btn btn-warning" type="submit" value="Sign Out"/>
 		</form>
+	</div>
+	<div th:each="gen : ${genres}">
+			<button th:href="@{/gamelist/{id}(id=${gen.id})}" th:text="${gen.name}">Genre</button>
 	</div>
 </body>
 </html>

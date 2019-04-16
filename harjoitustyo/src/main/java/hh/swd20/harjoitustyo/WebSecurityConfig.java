@@ -25,7 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and().logout().permitAll().invalidateHttpSession(true);*/
 		http.authorizeRequests().anyRequest().permitAll()
 		.and().formLogin().loginPage("/login").permitAll()
-		.and().logout().permitAll().invalidateHttpSession(true);
+		.and().logout().permitAll().invalidateHttpSession(true).
+		and().authorizeRequests().antMatchers("/h2-console/**").permitAll()
+        .and().csrf().ignoringAntMatchers("/h2-console/**")
+        .and().headers().frameOptions().sameOrigin();
 	} 
 	
 	@Autowired
