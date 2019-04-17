@@ -20,14 +20,14 @@ public class GameController {
 	   
 	   @RequestMapping("/gamelist")
 	   public String gameslist(Model model) {
-		   model.addAttribute("genres", genrerepo);
-		   model.addAttribute("games", gamerepo);
+		   model.addAttribute("genres", genrerepo.findAll());
+		   model.addAttribute("games", gamerepo.findAll());
 		   return "gamelist";
 	   }
 	   
 	   @RequestMapping("/gamelist/{id}")
 	   public String gamesByGenre(@PathVariable(name = "id")Long id, Model model) {
-		   model.addAttribute("genres", genrerepo);
+		   model.addAttribute("genres", genrerepo.findAll());
 		   model.addAttribute("games", genrerepo.findById(id).get().getGames());
 		   return "gamelist";
 	   }

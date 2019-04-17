@@ -1,5 +1,8 @@
 package hh.swd20.harjoitustyo;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -41,6 +44,32 @@ public class HarjoitustyoApplication {
 			Genre genre5 = new Genre(); genre5.setName("Action");
 			genrerepo.save(genre1); genrerepo.save(genre2); genrerepo.save(genre3);
 			genrerepo.save(genre4); genrerepo.save(genre5);
+			
+			log.info("Add games");
+			Game game1 = new Game(); game1.setTitle("Skyrim"); game1.setSummary("Somethin somthin rpg.");
+			Set<Genre> set = new HashSet<>(); set.addAll(genrerepo.findByName("RPG")); game1.setReview("Dope game!");
+			game1.setGenres(set); gamerepo.save(game1);
+			Game game2 = new Game(); game2.setTitle("Everything in Genres"); game2.setSummary("Test for genres");
+			set.clear(); game2.setReview("");
+			for (Genre genre : genrerepo.findAll()) {
+				set.add(genre);
+			}
+			game2.setGenres(set); gamerepo.save(game2);
+			
+			log.info("Creating comments");
+			Comment comment1 = new Comment(); comment1.setComment("gnaklhgbghbgkabkabgbagkbgakb");
+			comment1.setGame(gamerepo.findByTitle("Skyrim").get(0));
+			comment1.setUser(userrepo.findByUsername("admin")); commentrepo.save(comment1);
+			Comment comment2 = new Comment(); comment2.setComment("gnaklhgbgahhaghbgkabkabgbagkbgakb");
+			comment2.setGame(gamerepo.findByTitle("Everything in Genres").get(0));
+			comment1.setUser(userrepo.findByUsername("admin")); commentrepo.save(comment2);
+			
+			Comment comment3 = new Comment(); comment3.setComment("gnaklhgbghbgkabkabgbagkbgakb");
+			comment3.setGame(gamerepo.findByTitle("Skyrim").get(0));
+			comment3.setUser(userrepo.findByUsername("user")); commentrepo.save(comment3);
+			Comment comment4 = new Comment(); comment4.setComment("gnakagharnhalhgbghbgkabkabgbagkbgakb");
+			comment4.setGame(gamerepo.findByTitle("Skyrim").get(0));
+			comment4.setUser(userrepo.findByUsername("user")); commentrepo.save(comment4);
 		};
 	}
 }

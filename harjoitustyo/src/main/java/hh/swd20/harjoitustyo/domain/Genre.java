@@ -17,7 +17,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter	@Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class Genre {
 
@@ -26,12 +27,12 @@ public class Genre {
 	@Column(name = "genreid", nullable = false)
 	@Setter(AccessLevel.NONE)
 	private Long id;
-	
+
 	@Column(name = "name", nullable = false)
 	private String name;
-	
+
 	@JsonIgnore
 	@ManyToMany
 	private Set<Game> games;
-	
+
 }

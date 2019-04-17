@@ -12,8 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,7 +23,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter	@Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class Game {
 
@@ -31,24 +32,23 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(AccessLevel.NONE)
 	private Long id;
-	
+
 	@NotNull
 	private String title;
-	
-	@Max(2000)
+
+	@Size(max = 2000)
 	private String summary;
-	
-	@Max(5000)
+
+	@Size(max = 5000)
 	private String review;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
 	@JsonIgnore
 	private List<Comment> comments;
-	
+
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "games_to_genre", joinColumns = @JoinColumn(name = "game_id"),
-	inverseJoinColumns = @JoinColumn(name = "genreid"))
+	@JoinTable(name = "games_to_genre", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "genreid"))
 	private Set<Genre> genres;
 
 }

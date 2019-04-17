@@ -19,7 +19,7 @@
 				<th>Review</th>
 			</tr>
 			<tr th:each="game : ${games}">
-				<td th:href="@{/game/{id}(id=${genre.id})}"><p th:text="${game.title}"></p></td>
+				<td th:href="@{/game/{id}(id=${game.id})}"><p th:text="${game.title}"></p></td>
 				<td><p th:text="${game.comments.size()}"></p></td>
 				<td></td>
 			</tr>

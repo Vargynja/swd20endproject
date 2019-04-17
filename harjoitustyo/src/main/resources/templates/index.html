@@ -8,18 +8,32 @@
 <title>GameStatics</title>
 </head>
 <body>
+<div class="row">
 	<div class="col-8">
 		<h1>Welcome to GameStatics</h1>
 	</div>
 	<div class="col-4">
-		<h6 sec:authorize="isAuthenticated()" th:inline="text">Current user: [[${#httpServletRequest.remoteUser}]]</h6>
-		<button th:action="@{/login}" sec:authorize="isAnonymous()" class="btn btn-success">Login</button>
-		<form th:action="@{/logout}" method="post">
-			<input class="btn btn-warning" type="submit" value="Sign Out"/>
+		<div class="row">
+			<div sec:authorize="isAuthenticated()">
+				<h6 th:inline="text">Current user: [[${#httpServletRequest.remoteUser}]]</h6>
+			</div>
+			<form th:action="@{/login}" sec:authorize="isAnonymous()" >
+				<input type="submit" class="btn btn-success" value="Login"/>
+			</form>
+			<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+				<input class="btn btn-warning" type="submit" value="Sign Out"/>
+			</form>
+		</div>
+	</div>
+</div>
+	<form th:action="@{/gamelist}">
+			<input class="btn btn-outline-dark" type="submit" value="All games"	>
+	</form>
+	<div th:each="gen : ${genres}">
+		<form th:action="@{/gamelist/{id}(id=${gen.id})}">
+			<input class="btn btn-outline-dark" type="submit" th:value="${gen.name}">
 		</form>
 	</div>
-	<div th:each="gen : ${genres}">
-			<button th:href="@{/gamelist/{id}(id=${gen.id})}" th:text="${gen.name}">Genre</button>
-	</div>
+
 </body>
 </html>

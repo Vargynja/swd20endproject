@@ -14,9 +14,13 @@ public class NaviController {
 	@Autowired
 	private  GenreRepository genrerepo;
 	
+	@GetMapping("/")
+	public String rootPage() {
+		return "redirect:index";
+	}
 	@GetMapping("/index")
 	public String homePage(Model model) {
-		model.addAttribute("genres", genrerepo);
+		model.addAttribute("genres", genrerepo.findAll());
 		return "index";
 	}
 	

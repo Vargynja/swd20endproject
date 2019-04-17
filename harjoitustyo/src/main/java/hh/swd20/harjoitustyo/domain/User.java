@@ -20,7 +20,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter	@Setter
+@Getter
+@Setter
 @NoArgsConstructor
 public class User {
 
@@ -29,26 +30,26 @@ public class User {
 	@Column(name = "userid", nullable = false, updatable = false)
 	@Setter(AccessLevel.NONE)
 	private Long id;
-	
+
 	@Column(name = "username", nullable = false, unique = true)
 	@Size(min = 3, max = 20)
 	private String username;
-	
+
 	@JsonIgnore
 	@NotNull
 	@Column(name = "password", nullable = false)
 	private String passwordHash;
-	
+
 	@Column(name = "email", nullable = false)
 	private String email;
-	
+
 	@JsonIgnore
 	@NotNull
 	@Column(name = "role", nullable = false)
 	private String role;
-	
+
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Comment> comments;
-	
+
 }
