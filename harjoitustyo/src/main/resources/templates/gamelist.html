@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
 <meta http-equiv="Content Type" content="text/html" charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <title>GameStatics</title>
 </head>
 <body>
+<div class="row">
+	<div class="col-8">
+		<h1>List of games</h1>
+		<a th:href="@{/index}">Home</a>
+	</div>
+	<div class="col-4">
+		<div class="row">
+			<div sec:authorize="isAuthenticated()">
+				<h6 th:inline="text">Current user: [[${#httpServletRequest.remoteUser}]]</h6>
+			</div>
+			<form th:action="@{/login}" sec:authorize="isAnonymous()" >
+				<input type="submit" class="btn btn-success" value="Login"/>
+			</form>
+			<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+				<input class="btn btn-warning" type="submit" value="Sign Out"/>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="row">
 	<div class="col-4">
 		<ul th:each="genre : ${genres}">
-			<li><a th:text="${genre.name}" th:href="@{/gamelist/{id}(id=${genre.id})}"></a></li>
+			<li><a class="btn btn-outline-dark" th:text="${genre.name}" th:href="@{/gamelist/{id}(id=${genre.id})}"></a></li>
 		</ul>
 	</div>
 	<div class="col-8">
-		<table>
+		<table class="table">
 			<tr>
 				<th>Title</th>
 				<th>Comments</th>
 				<th>Review</th>
 			</tr>
 			<tr th:each="game : ${games}">
-				<td th:href="@{/game/{id}(id=${game.id})}"><p th:text="${game.title}"></p></td>
+				<td><a th:href="@{/game/{id}(id=${game.id})}" th:text="${game.title}"></a></td>
 				<td><p th:text="${game.comments.size()}"></p></td>
 				<td></td>
 			</tr>
 		</table>
 	</div>
+</div>
 </body>
 </html>

@@ -32,7 +32,7 @@ public class Genre {
 	private String name;
 
 	@JsonIgnore
-	@ManyToMany
+	@ManyToMany(mappedBy = "genres")
 	private Set<Game> games;
 
 }

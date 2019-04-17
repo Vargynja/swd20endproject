@@ -8,6 +8,7 @@
 <body>
 <div class="col-lg">
 	<h1>Login to the service</h1>
+	<a th:href="@{/index}">Home</a>
 	<div th:if="${param.error}">Invalid username or password.</div>
 
 	<form th:action="@{/login}" method="post" class="form-inline">

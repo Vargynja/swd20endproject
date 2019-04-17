@@ -48,7 +48,8 @@ public class Game {
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(name = "games_to_genre", joinColumns = @JoinColumn(name = "game_id"), inverseJoinColumns = @JoinColumn(name = "genreid"))
+	@JoinTable(name = "games_to_genre",
+	joinColumns = {@JoinColumn(name = "game_id")}, inverseJoinColumns = { @JoinColumn(name = "genreid")})
 	private Set<Genre> genres;
 
 }
