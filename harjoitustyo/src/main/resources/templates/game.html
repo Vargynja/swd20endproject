@@ -6,21 +6,23 @@
 <title>GameStatics</title>
 </head>
 <body>
+<div>
 	<h1 th:text="${game.title}">Title</h1>
 	<div class="row"><p th:text="${game.summary}">Summary</p></div>
 	<div class="row"><p th:text="${game.review}">Review</p></div>
-	<div th:each="comment : ${game.comments}">
-		<table>
+	<div>
+		<table class="table">
 			<tr>
 				<th> Comment </th>
 			</tr>
 			<tr th:each="comment : ${game.comments}">
 				<td>
-					<a th:href="" th:text="${comment.user.username}">User</a>
-					<p th:text="</ br> + '${comment.comment}">Comment</p>
+					<a th:href="@{/u/{id}(id=${comment.user.id})}"th:text="${comment.user.username}">User</a>
+					<p th:text="${comment.comment}">Comment</p>
 				</td>
 			</tr>
 		</table>
 	</div>
+</div>
 </body>
 </html>

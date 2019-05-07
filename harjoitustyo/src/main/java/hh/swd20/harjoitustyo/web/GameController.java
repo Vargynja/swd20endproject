@@ -3,6 +3,7 @@ package hh.swd20.harjoitustyo.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,5 +31,11 @@ public class GameController {
 		   model.addAttribute("genres", genrerepo.findAll());
 		   model.addAttribute("games", genrerepo.findById(id).get().getGames());
 		   return "gamelist";
+	   }
+	   
+	   @GetMapping("/game/{id}")
+	   public String gamePage(@PathVariable(name = "id")Long id, Model model) {
+		   model.addAttribute("game", gamerepo.findById(id).get());
+		   return "game";
 	   }
 }
